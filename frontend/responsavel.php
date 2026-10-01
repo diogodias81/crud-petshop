@@ -19,11 +19,11 @@
             <input type="text" id="telefoneDoResponsavel" placeholder="Insira seu Telefone">
         </div>
         <div>
-            <label for="cpfResponsavel">Responsavel</label>
+            <label for="cpfResponsavel">CPF</label>
             <input type="number" id="cpfResponsavel" placeholder="Insira Seu Cpf">
         </div>
         <button type="button" onclick="adicionarInformacoes()">Salvar</button>
-        <button type="button" onclick="limparCampo()"></button>
+        <button type="button" onclick="limparCampo()">Limpar</button>
     </form> 
     <div id="resultado">
 

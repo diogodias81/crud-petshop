@@ -7,7 +7,7 @@ let resultado = document.querySelector('#resultado');
 
 //primeira parte: enviar os dados pro banco
 function adicionarInformacoes(){
-    fetch('../db/bancoResponsavel.php?acao=C',{
+    fetch('../db/bancoResponsavel.php',{
         method:'POST',
         headers:{
             "Content-Type": "application/x-www-form-urlencoded"
@@ -16,14 +16,22 @@ function adicionarInformacoes(){
     })
     .then(r => r.json())
     .then(r => {
-        carregarInformacoesPessoais();
+        if(r.info) {
+            alert(r.info); return;
+        }
+
+        if(r.mensagem) {
+            alert(r.mensagem);
+
+            carregarInformacoesPessoais();
+        }
     })
 }
 
 
 //segunda parte:carregar as informacoes enviadas para o banco e listar no elementoHTML
 function carregarInformacoesPessoais(){
-    fetch('../db/bancoResponsavel.php?acao=c')
+    fetch('../db/bancoResponsavel.php?acao=C')
         .then(resposta => resposta.json())
         .then(resposta =>{
             let elementoHTML = ''; 

@@ -1,4 +1,5 @@
 <?php
+//refazer tudo do zero 
     class responsavel 
     {
         public function listarInformacoesPessoais(){
@@ -10,26 +11,22 @@
         if (isset($_POST) && count($_POST) > 0) {
 
             if (!$_POST['nome']) {
-                die(json_encode(['mensagem' => 'O campo Nome é obrigatório!']));
+                return ['info' => 'O campo Nome é obrigatório!'];
             }
 
             if (!$_POST['telefone']) {
-                die(json_encode(['mensagem' => 'O campo Telefone é obrigatório!']));
+                return ['info' => 'O campo Telefone é obrigatório!'];
             }
 
             if (!$_POST['cpf']) {
-                die(json_encode(['mensagem' => 'O campo CPF é obrigatório!']));
+                return ['info' => 'O campo CPF é obrigatório!'];
             }
 
             if ((int)$_POST['telefone'] != $_POST['telefone']) {
-                die(json_encode([
-                    'mensagem' => ' O telefone deve ser um número inteiro'
-                ]));
+                return ['info' => ' O telefone deve ser um número inteiro'];
             }
             if ((int)$_POST['cpf'] != $_POST['cpf']) {
-                die(json_encode([
-                    'mensagem' => ' O codigo deve ser um número inteiro'
-                ]));
+                return ['info' => ' O codigo deve ser um número inteiro'];
             }
 
 
@@ -40,9 +37,9 @@
                 $_SESSION['respLista'][$indice]['cpf'] = $_POST['cpf'];
             } else {
                 $_SESSION['respLista'][] = [
-                    'codigo'     => $_POST['nome'],
-                    'nome'       => $_POST['telefone'],
-                    'quantidade' => $_POST['cpf']
+                    'nome'         => $_POST['nome'],
+                    'telefone'     => $_POST['telefone'],
+                    'cpf'          => $_POST['cpf']
                 ];
             }
         }
