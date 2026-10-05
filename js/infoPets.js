@@ -1,4 +1,4 @@
-let nomeAnimal = document.querySelector('#nomeAnimal');
+let nomePet = document.querySelector('#nomePet');
 let especieSelecionada = document.querySelector('#especieAnimal');
 let idadeDoAnimal = document.querySelector('#idadeAnimal');
 let resultado = document.querySelector('#resultadoPetsInfo');
@@ -15,7 +15,7 @@ function adicionarInfoPet() {
             `
         acao=I
         &nomePet
-        ${nomeAnimal.value}
+        ${nomePet.value}
         &especie=${especieSelecionada.value}
         &idade=${idadeDoAnimal.value}
         &indice=${indice}
@@ -24,6 +24,8 @@ function adicionarInfoPet() {
     })
     .then(resposta => resposta.json())
     .then(resposta =>{
+        carregarResponsavel();
+        limpar();
         //tratar o erro ou sucesso
         //limpar campos
     })
@@ -55,7 +57,7 @@ function carregarInfosPet(){
             listHTML += 
             `<div>
                 <p>
-                    Nome Do Animal:${resposta[i].nomeAnimal}<br>
+                    Nome Do Animal:${resposta[i].nomePet}<br>
                     Especie:${resposta[i].especieSelecionada}<br>
                     Idade Do Animal:${resposta[i].idadeDoAnimal}
                 </p>
@@ -65,7 +67,15 @@ function carregarInfosPet(){
     resultado.innerHTML = listHTML;
         
 }
+//funcao editar
+
+//funcao deletar
 
 
-
+function limpar(){
+    nomePet.value ='';
+    especieSelecionada.value = ''
+    idadeDoAnimal.value = '';
+    indice.value = '';
+}
 carregarResponsavel()
