@@ -17,13 +17,15 @@ function adicionarInformacoes(){
     .then(r => r.json())
     .then(r => {
         if(r.info) {
-            alert(r.info); return;
+            alert(r.info); 
+            return;
         }
 
         if(r.mensagem) {
             alert(r.mensagem);
 
             carregarInformacoesPessoais();
+            limpar()
         }
     })
 }
@@ -40,21 +42,44 @@ function carregarInformacoesPessoais(){
                 elementoHTML += `
                     <div>
                         <p>
-                            Nome:${resposta[i].nome}
-                            Cpf: ${resposta[i].cpf}
-                            Telefone:${resposta[i].telefone}
+                            Nome:${resposta[i].nome}<br>
+                            Telefone:${resposta[i].telefone}<br>
+                            Cpf: ${resposta[i].cpf}<br>                  
                         </p>
                         <button type="button"
-                             onclick="editarInformacao(${i},${resposta[i].nome},'${resposta[i].cpf}',${resposta[i].cpf})">Editar</button>
+                             onclick="editarInformacao(${i},'${resposta[i].nome}','${resposta[i].telefone}','${resposta[i].cpf}')">Editar</button>
                         <button type="button"
-                            onclick="deletarInformacao(${i})">
+                            onclick="deletarResponsavel(${i})">
                             Deletar
                         </button>
-                    </div>
                     </div>
                                 `
             }
             resultado.innerHTML = elementoHTML;
         });
+    }
+    //editar passando os indices e puxando pros campos inputs o valores que precisa mudar
+    function editarInformacao (indiceEditado,nomeEditado,telefoneEditado,cpfEditado,){
+            indice.value=indiceEditado
+            nome.value = nomeEditado;
+            telefone.value = telefoneEditado;
+            cpf.value = cpfEditado;
+        }
+
+    function deletarResponsavel(indice){
+        fetch(`../db/bancoResponsavel.php?indice=${indice}&acao=D`)
+            .then(resposta => resposta.json())
+            .then(resposta => {
+                if(resposta.mensagem){
+                    alert(resposta.mensagem);
+                }
+                carregarInformacoesPessoais()
+        })  
+    }
+    function limpar(){
+        telefone.value ='';
+        cpf.value ='';
+        nome.value = '';        
+        indice.value = ''
     }
 carregarInformacoesPessoais()

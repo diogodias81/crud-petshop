@@ -22,13 +22,21 @@
             <label for="cpfResponsavel">CPF</label>
             <input type="number" id="cpfResponsavel" placeholder="Insira Seu Cpf">
         </div>
-        <button type="button" onclick="adicionarInformacoes()">Salvar</button>
-        <button type="button" onclick="limparCampo()">Limpar</button>
+        <div>     
+            <button type="button" onclick="adicionarInformacoes()">Salvar</button>
+            <button type="button" onclick="limparCampo()">Limpar</button>
+        </div>
+         
     </form> 
+   
     <div id="resultado">
-
+   
     </div>
-
+   
+    <p>Registre As Informações Do Seu Pet:</p>
+   
+    <a href="infoPet.php">IR</a>
+   
     <script src="../js/resp.js"></script>
 </body>
 </html>
