@@ -1,3 +1,7 @@
+<?php 
+session_start();
+// echo'<pre>';print_r($_SESSION);die;
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -32,12 +36,15 @@
         </div>
         <br>
         <div>
-            <label for="resultadoPetsInfo">Responsavel</label>
-            <select id="resultadoPetsInfo">
+            <label for="listaResponsavel">Responsavel</label>
+            <select id="listaResponsavel">
             </select>
         </div>
+        <button onclick="adcionarInfoPets()">Salvar Informações</button>
         <br>
-        <button onclick="salvarInfoPets()">Salvar Informações</button>
+        <div id="resultadoPet"></div>
+        <br>
+        
     </form>
     <br>
     <h1>Apos Inserir os dados Do Seu Pet Finalize abaixo!</h1>

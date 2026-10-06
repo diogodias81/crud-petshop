@@ -1,33 +1,30 @@
-let nomePet = document.querySelector('#nomePet');
+let nomePet = document.querySelector('#nomeAnimal');
 let especieSelecionada = document.querySelector('#especieAnimal');
 let idadeDoAnimal = document.querySelector('#idadeAnimal');
-let resultado = document.querySelector('#resultadoPetsInfo');
+let resultado = document.querySelector('#listaResponsavel');
+let resultadoPet = document.querySelector('#resultadoPet')
 let indice = document.querySelector('#indice');
-
+let responsavel = []
 //enviando dados para o database
-function adicionarInfoPet() {
-    fetch('..db/bancoInfoPet.php', {
+function adcionarInfoPets() {
+    fetch('../db/bancoInfoPet.php', {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body:
-            `
-        acao=I
-        &nomePet
-        ${nomePet.value}
-        &especie=${especieSelecionada.value}
-        &idade=${idadeDoAnimal.value}
-        &indice=${indice}
+        body:`acao=I&nomePet=${nomePet.value}&especie=${especieSelecionada.value}&idade=${idadeDoAnimal.value}&indice=${indice.value}
     `
 
     })
     .then(resposta => resposta.json())
     .then(resposta =>{
-        carregarResponsavel();
+        carregarInfosPet();
         limpar();
         //tratar o erro ou sucesso
         //limpar campos
+    })
+    .catch((error) => {
+        alert(error)
     })
 }
 
@@ -35,47 +32,60 @@ function carregarResponsavel() {
     fetch('../db/bancoResponsavel.php?acao=C')
         .then(resposta => resposta.json())
         .then(resposta => {
-            console.log(resposta);
-
             let listaHTML = '<option value="">SELECIONE...</option>';
-
+            responsavel = resposta
             for (let i = 0; i < resposta.length; i++) {
-                listaHTML += `<option value="${resposta[i].indice}">
+                listaHTML += `<option value="${i}">
                                     Responsavel:${resposta[i].nome}
                             </option>`;
             }
             resultado.innerHTML = listaHTML;
-
-        });
+        });       
 }
 function carregarInfosPet(){
     fetch('../db/bancoInfoPet.php?acao=C')
-    .then(respost => resposta.json())
+    .then(resposta => resposta.json())
     .then(resposta =>{
-        listHTML = '';
+        
+        let listHTML = '';
         for(let i = 0; i < resposta.length;i++){
             listHTML += 
             `<div>
                 <p>
                     Nome Do Animal:${resposta[i].nomePet}<br>
-                    Especie:${resposta[i].especieSelecionada}<br>
-                    Idade Do Animal:${resposta[i].idadeDoAnimal}
+                    Idade Do Animal:  ${resposta[i].idade}<br>
+                    Especie:${resposta[i].especie}
+
                 </p>
+                <button type="button"
+                    onclick="editarInformacaoPet(${i}, '${resposta[i].nomePet}', '${resposta[i].idade}'),'${resposta[i].especie}'">
+                    Editar
+                    </button>
+                 <button type="button"
+                    onclick="deletar(${i})">
+                    Deletar
+                </button>
             </div>`
         }
+        resultadoPet.innerHTML = listHTML;
     })
-    resultado.innerHTML = listHTML;
+    
         
 }
 //funcao editar
-
+function editarInformacaoPet(indiceEditado,nomePetEditado,idadeDoAnimalEditado,especieEditada){
+    indice.value  = indiceEditado;
+    nomePet.value = nomePetEditado;
+    idadeDoAnimal.value = idadeDoAnimalEditado;
+    especieSelecionada.value = especieEditada;
+}
 //funcao deletar
 
 
 function limpar(){
     nomePet.value ='';
-    especieSelecionada.value = ''
     idadeDoAnimal.value = '';
     indice.value = '';
 }
+carregarInfosPet()
 carregarResponsavel()

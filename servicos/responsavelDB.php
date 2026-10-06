@@ -32,9 +32,9 @@
 
             if (isset($_POST['indice']) && is_numeric($_POST['indice'])) {
                 $indice = $_POST['indice'];
-                $_SESSION['respLista'][$indice]['nome'] = $_POST['nome'];
+                $_SESSION['respLista'][$indice]['nome']     = $_POST['nome'];
                 $_SESSION['respLista'][$indice]['telefone'] = $_POST['telefone'];
-                $_SESSION['respLista'][$indice]['cpf'] = $_POST['cpf'];
+                $_SESSION['respLista'][$indice]['cpf']      = $_POST['cpf'];
             } else {
                 $_SESSION['respLista'][] = [
                     'nome'         => $_POST['nome'],
