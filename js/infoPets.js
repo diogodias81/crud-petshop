@@ -4,17 +4,16 @@ let idadeDoAnimal = document.querySelector('#idadeAnimal');
 let resultado = document.querySelector('#listaResponsavel');
 let resultadoPet = document.querySelector('#resultadoPet')
 let indice = document.querySelector('#indice');
-let responsavel = []
 //enviando dados para o database
+
 function adcionarInfoPets() {
+        
     fetch('../db/bancoInfoPet.php', {
         method: 'POST',
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body:`acao=I&nomePet=${nomePet.value}&especie=${especieSelecionada.value}&idade=${idadeDoAnimal.value}&indice=${indice.value}
-    `
-
+        body:`acao=I&nomePet=${nomePet.value}&especie=${especieSelecionada.value}&idade=${idadeDoAnimal.value}&indice=${indice.value}`
     })
     .then(resposta => resposta.json())
     .then(resposta =>{
@@ -33,7 +32,6 @@ function carregarResponsavel() {
         .then(resposta => resposta.json())
         .then(resposta => {
             let listaHTML = '<option value="">SELECIONE...</option>';
-            responsavel = resposta
             for (let i = 0; i < resposta.length; i++) {
                 listaHTML += `<option value="${i}">
                                     Responsavel:${resposta[i].nome}
@@ -46,7 +44,6 @@ function carregarInfosPet(){
     fetch('../db/bancoInfoPet.php?acao=C')
     .then(resposta => resposta.json())
     .then(resposta =>{
-        
         let listHTML = '';
         for(let i = 0; i < resposta.length;i++){
             listHTML += 
@@ -55,10 +52,9 @@ function carregarInfosPet(){
                     Nome Do Animal:${resposta[i].nomePet}<br>
                     Idade Do Animal:  ${resposta[i].idade}<br>
                     Especie:${resposta[i].especie}
-
                 </p>
                 <button type="button"
-                    onclick="editarInformacaoPet(${i}, '${resposta[i].nomePet}', '${resposta[i].idade}'),'${resposta[i].especie}'">
+                    onclick="editarInformacaoPet(${i}, '${resposta[i].nomePet}', '${resposta[i].idade}','${resposta[i].especie}')">
                     Editar
                     </button>
                  <button type="button"
@@ -80,12 +76,22 @@ function editarInformacaoPet(indiceEditado,nomePetEditado,idadeDoAnimalEditado,e
     especieSelecionada.value = especieEditada;
 }
 //funcao deletar
-
+function deletar(indice) {
+    fetch(`../db/bancoInfoPet.php?indice=${indice}&acao=D`)
+        .then(resposta => resposta.json())
+        .then(resposta => {
+            if (resposta.mensagem) {
+                alert(resposta.mensagem);
+            }
+            carregarInfosPet()
+        })
+}
 
 function limpar(){
     nomePet.value ='';
     idadeDoAnimal.value = '';
     indice.value = '';
+    especieSelecionada.value='';
 }
 carregarInfosPet()
 carregarResponsavel()

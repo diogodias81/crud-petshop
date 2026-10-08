@@ -40,18 +40,18 @@ session_start();
             <select id="listaResponsavel">
             </select>
         </div>
-        <button onclick="adcionarInfoPets()">Salvar Informações</button>
+        <button type="button" onclick="adcionarInfoPets()">Salvar Informações</button>
         <br>
         <div id="resultadoPet"></div>
         <br>
         
     </form>
     <br>
-    <h1>Apos Inserir os dados Do Seu Pet Finalize abaixo!</h1>
-    <a href="responsavel.php">Finalizar</a>
-    <br><br><br>
-
-    <a href="responsavel.php">VOLTAR</a>
+    <p>Registro de Servico</p>
+    <a href="servicos.php">Servico</a>
+    <br><br>
+    <p>Registro de Responsavel</p>
+    <a href="responsavel.php">Registro Responsável</a>
     
     <script src="../js/infoPets.js"></script>
 </body>
