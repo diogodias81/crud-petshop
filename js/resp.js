@@ -25,7 +25,7 @@ function adicionarInformacoes() {
                 alert(r.mensagem);
 
                 carregarInformacoesPessoais();
-                limpar()
+                limparCampo()
             }
         })
 }
@@ -36,25 +36,31 @@ function carregarInformacoesPessoais() {
     fetch('../db/bancoResponsavel.php?acao=C')
         .then(resposta => resposta.json())
         .then(resposta => {
-            let elementoHTML = '';
+            let  elementoHTML= '<ol class="list-group list-group-numbered mb-2">';
 
             for (let i = 0; i < resposta.length; i++) {
-                elementoHTML += `
-                    <div>
-                        <p>
-                            Nome:${resposta[i].nome}<br>
+                elementoHTML += `<li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">${resposta[i].nome}</div>
                             Telefone:${resposta[i].telefone}<br>
-                            Cpf: ${resposta[i].cpf}<br>                  
-                        </p>
-                        <button type="button"
-                             onclick="editarInformacao(${i},'${resposta[i].nome}','${resposta[i].telefone}','${resposta[i].cpf}')">Editar</button>
-                        <button type="button"
-                            onclick="deletarResponsavel(${i})">
-                            Deletar
-                        </button>
-                    </div>
-                                `
+                            Cpf: ${resposta[i].cpf}<br>
+
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button"
+                                    class="btn-solid theme-warning"
+                                    onclick="editarInformacao(${i},'${resposta[i].nome}','${resposta[i].telefone}','${resposta[i].cpf}')">Editar</button>
+                                <button type="button"
+                                    class="btn-solid theme-danger"
+                                    onclick="deletarResponsavel(${i})">
+                                    Deletar
+                                </button>
+                            </div>
+                        </div>
+                    </li>`
             }
+
+            elementoHTML += '</ol>';
+
             resultado.innerHTML = elementoHTML;
         });
 }
@@ -76,10 +82,12 @@ function deletarResponsavel(indice) {
             carregarInformacoesPessoais()
         })
 }
-function limpar() {
+
+function limparCampo() {
     telefone.value = '';
     cpf.value = '';
     nome.value = '';
     indice.value = ''
 }
+
 carregarInformacoesPessoais()

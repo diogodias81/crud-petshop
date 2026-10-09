@@ -21,12 +21,7 @@
                     return ['info' => 'O campo CPF é obrigatório!'];
                 }
 
-                if ((int)$_POST['telefone'] != $_POST['telefone']) {
-                    return ['info' => ' O telefone deve ser um número inteiro'];
-                }
-                if ((int)$_POST['cpf'] != $_POST['cpf']) {
-                    return ['info' => ' O codigo deve ser um número inteiro'];
-                }
+                
                 if (isset($_POST['indice']) && $_POST['indice'] !== ''){
                     $indice = $_POST['indice'];
                     $_SESSION['respLista'][$indice]['nome']     = $_POST['nome'];

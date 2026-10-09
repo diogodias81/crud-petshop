@@ -34,7 +34,7 @@ function carregarResponsavel() {
             let listaHTML = '<option value="">SELECIONE...</option>';
             for (let i = 0; i < resposta.length; i++) {
                 listaHTML += `<option value="${i}">
-                                    Responsavel:${resposta[i].nome}
+                                    ${resposta[i].nome}
                             </option>`;
             }
             resultado.innerHTML = listaHTML;
@@ -75,6 +75,9 @@ function editarInformacaoPet(indiceEditado,nomePetEditado,idadeDoAnimalEditado,e
     idadeDoAnimal.value = idadeDoAnimalEditado;
     especieSelecionada.value = especieEditada;
 }
+//funcao editar
+
+
 //funcao deletar
 function deletar(indice) {
     fetch(`../db/bancoInfoPet.php?indice=${indice}&acao=D`)
