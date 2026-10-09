@@ -43,8 +43,8 @@ function carregarInformacoesPessoais() {
                         <div class="ms-2 me-auto">
                         <div class="fw-bold">${resposta[i].nome}</div>
                             Telefone:${resposta[i].telefone}<br>
-                            Cpf: ${resposta[i].cpf}<br>
-
+                            Cpf: ${resposta[i].cpf}
+                        </div>
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <button type="button"
                                     class="btn-solid theme-warning"
@@ -55,7 +55,6 @@ function carregarInformacoesPessoais() {
                                     Deletar
                                 </button>
                             </div>
-                        </div>
                     </li>`
             }
 

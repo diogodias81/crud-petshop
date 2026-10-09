@@ -44,25 +44,28 @@ function carregarInfosPet(){
     fetch('../db/bancoInfoPet.php?acao=C')
     .then(resposta => resposta.json())
     .then(resposta =>{
-        let listHTML = '';
+        let listHTML = '<ol class="list-group list-group-numbered mb-2">';
         for(let i = 0; i < resposta.length;i++){
-            listHTML += 
-            `<div>
-                <p>
-                    Nome Do Animal:${resposta[i].nomePet}<br>
+            listHTML += `<li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="ms-2 me-auto">
+                <div class="fw-bold">Nome Do Animal:${resposta[i].nomePet}</div>
                     Idade Do Animal:  ${resposta[i].idade}<br>
                     Especie:${resposta[i].especie}
-                </p>
-                <button type="button"
-                    onclick="editarInformacaoPet(${i}, '${resposta[i].nomePet}', '${resposta[i].idade}','${resposta[i].especie}')">
-                    Editar
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button"
+                        class="btn-solid theme-warning"
+                        onclick="editarInformacaoPet(${i}, '${resposta[i].nomePet}', '${resposta[i].idade}','${resposta[i].especie}')">Editar
                     </button>
-                 <button type="button"
+                 <button type="button" class="btn-solid theme-danger"
                     onclick="deletar(${i})">
                     Deletar
                 </button>
-            </div>`
+                </div>
+            </div>
+            </li>`
         }
+        listHTML +='</ol>'
         resultadoPet.innerHTML = listHTML;
     })
     
